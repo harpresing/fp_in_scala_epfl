@@ -59,3 +59,30 @@ def mapReduce(f: Int => Int, combine: (Int, Int) => Int, identity: Int)
 
 mapReduce(x => x, (a, b) => a + b, 0)(1, 10) // sum
 mapReduce(x => x, (a, b) => a * b, 1)(1, 10) // product
+
+// Fixed Points
+
+val epsilon = 0.0001
+def fixedPoint(f: Double => Double)(firstGuess: Int): Double = {
+
+  def isCloseEnough(guess: Double): Boolean =
+    Math.abs((guess - f(guess)) / guess) / guess < epsilon
+
+  def iterate(guess: Double): Double = {
+    if (isCloseEnough(guess)) guess
+    else iterate(f(guess))
+  }
+  iterate(1)
+}
+
+fixedPoint(x => 1 + x/2)(1)
+
+def sqrt(x: Double): Double = fixedPoint(y => (y + x/y) / 2)(1)
+sqrt(100)
+
+// sqrt(x) is a fixed point function y = x/y that converges when we iterate on successive
+// averaging values
+// This technique can be abstracted to a Function
+def averageDamp(f: Double => Double)(x: Double) = (x + f(x)) / 2
+def sqrtWithAvgDamp(x: Double): Double = fixedPoint(averageDamp(y => x/y))(1)
+sqrtWithAvgDamp(100)
