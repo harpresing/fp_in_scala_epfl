@@ -60,7 +60,11 @@ def mapReduce(f: Int => Int, combine: (Int, Int) => Int, identity: Int)
 mapReduce(x => x, (a, b) => a + b, 0)(1, 10) // sum
 mapReduce(x => x, (a, b) => a * b, 1)(1, 10) // product
 
-// Fixed Points
+
+// Fixed point of a function f is defined for a x such that f(x) = x
+// Calculating sqrt with this methodology, y * y = x
+// => y = x/y, hence for this function we need to find the fixed pt so that f(x) = x
+// where that fixed pt is the sqrt(x)
 
 val epsilon = 0.0001
 def fixedPoint(f: Double => Double)(firstGuess: Int): Double = {
@@ -86,3 +90,17 @@ sqrt(100)
 def averageDamp(f: Double => Double)(x: Double) = (x + f(x)) / 2
 def sqrtWithAvgDamp(x: Double): Double = fixedPoint(averageDamp(y => x/y))(1)
 sqrtWithAvgDamp(100)
+
+// Validation of class members
+
+class Rationals(x: Int, y: Int) { // This automatically creates a constructor
+  require(y > 0, "denominator must not be zero")
+
+  def this(x: Int) = this(x, 1) // additional constructor
+
+  private def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+  val nume = x / gcd(x, y)
+  val demo = y / gcd(x, y)
+}
+
+val r = new Rationals(1, 0) // Will throw IllegalArgumentException
