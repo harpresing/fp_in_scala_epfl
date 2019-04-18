@@ -69,3 +69,35 @@ val t2 = new NonEmpty(23, new Empty, new Empty)
 val t3 = t1 include 12
 val t4 = t2 union t3
 val t5 = t4 union new NonEmpty(1, new Empty, new Empty)
+
+trait List[T] {
+  def isEmpty: Boolean
+
+  def head: T
+
+  def tail: List[T]
+}
+
+class Nil[T] extends List[T] {
+  def isEmpty: Boolean = true
+
+  def head: Nothing = throw new NoSuchElementException("Nil.head")
+
+  def tail: Nothing = throw new NoSuchElementException("Nil.tail")
+}
+
+class Cons[T](val head: T, val tail: List[T]) extends List[T] {
+  def isEmpty: Boolean = false
+}
+
+
+def nth[T](n: Int, list: List[T]): T = {
+  if (list.isEmpty) throw new IndexOutOfBoundsException()
+  else if (n == 0) list.head
+  else nth(n - 1, list.tail)
+}
+
+val list = new Cons[Int](1, new Cons[Int](2, new Nil[Int]))
+
+nth(1, list)
+nth(2, list)
