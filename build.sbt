@@ -10,6 +10,8 @@ libraryDependencies += "junit" % "junit" % "4.10" % Test
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 
+libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
+
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 addSbtPlugin("com.artima.supersafe" % "sbtplugin" % "1.1.3")
