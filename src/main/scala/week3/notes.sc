@@ -101,3 +101,10 @@ val list = new Cons[Int](1, new Cons[Int](2, new Nil[Int]))
 
 nth(1, list)
 nth(2, list)
+
+
+object List {
+  def List() = new Nil[Int]()
+  def List(x: Int) = new Cons[Int](x, List())
+  def List(x: Int, y: Int) = new Cons[Int](x, List(y))
+}
