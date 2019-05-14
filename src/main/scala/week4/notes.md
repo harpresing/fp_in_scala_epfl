@@ -49,3 +49,43 @@ def f(x: Int): Boolean
 
 ##### Type Bounds
 
+###### Upper Bounds
+ 
+```scala
+def assertAllPos[S <: IntSet](r: S): S
+```
+
+Above `<: IntSet` is an upper bound of type parameter S.
+
++ S <: T means: S is a subtype of T
++ S >: T means: S is a supertype of T
+
+###### Lower Bounds
+
+Example
+
+```
+[S >: NonEmpty]
+```
+
+###### Mixed Bounds
+
+```
+[S >: NonEmpty <: IntSet]
+```
+
+###### Liskov Substitution Principle
+
+This principle tells us when a type can be a subtype of another
+
+```
+If A <: B then everything once can do with a value of type B
+one should also be able to do with a value of type A.
+```
+
+More formally
+
+```
+Let q(x) be a property provable about objects x of type B. Then 
+q(y) should be provable for objects y of type A where A <: B.
+```
