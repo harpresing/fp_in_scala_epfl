@@ -209,3 +209,5 @@ def insert(x: Int, xs: List[Int]): List[Int] = xs match {
   case y :: ys => if (x <= y) x :: xs else y :: insert(x, ys)
 }
 ```
+
+A [note](https://stackoverflow.com/a/6566523/5618041) on `:::`.
