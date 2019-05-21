@@ -1,0 +1,1 @@
+In order to run the Wikipedia example, download the file from [here](http://alaska.epfl.ch/~dockermoocs/bigdata/wikipedia.dat).

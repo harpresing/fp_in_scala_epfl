@@ -11,6 +11,8 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
+libraryDependencies += "org.apache.spark" %% "spark-core_2.12" % "2.4.3"
+libraryDependencies += "org.apache.spark" %% "spark-sql_2.12" % "2.4.3"
 
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
