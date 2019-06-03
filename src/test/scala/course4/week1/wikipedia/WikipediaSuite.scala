@@ -1,6 +1,6 @@
 package course4.week1.wikipedia
 
-import course4.week1.wikipedia.wikipedia.{WikipediaArticle, WikipediaRanking}
+import course4.week1.wikipedia.wikipedia._
 import org.junit.runner.RunWith
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
 import org.scalatest.junit.JUnitRunner

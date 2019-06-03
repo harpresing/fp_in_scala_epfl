@@ -65,3 +65,10 @@ def encode(xs: List[String]): List[(String, Int)] = xs match {
 }
 
 encode(List("a", "a", "a", "b", "c", "c", "a"))
+
+
+def mapFun[T, U](xs: List[T], f: T => U): List[U] =
+  (xs foldRight List[U]())((elem, _) => f(elem) :: mapFun(xs.tail, f))
+
+def lengthFun[T](xs: List[T]): Int =
+  (xs foldRight 0)( (_, acc) => acc + 1)

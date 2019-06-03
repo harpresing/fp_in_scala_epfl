@@ -142,4 +142,75 @@ def squareList(xs: List[Int]): List[Int] = xs match {
 def sqLMap(xs: List[Int]) = xs map (x => x * x)
 ```
 
+#### Reduction on Lists
 
+reduceLeft - takes a list and a binary operator (int the form of an anonymous function) and performs the operation on all elements
+accumulative-ly from left to right.
+
+
+```scala
+List(1, 2) reduceLeft ((x, y) => x + y) // gives 3
+```
+
+In the previous example instead of defining `((x, y) => x + y)`, you could use the
+shorthand notation `(_ + _)` where each _ represents a function parameter going left
+to right`
+
+reduceLeft can only be applied to non empty lists.
+
+`foldLeft` - similar to reduceLeft but also takes an accumulator z which it returns if the given list is empty,
+it acc as the name suggests is used to accumulate the result of the binary operation so it is added to the final
+result.
+
+```scala
+def sum(xs: List[Int]): Int = (xs foldLeft 0)(_ + _)
+```
+
+Application of foldLeft and reduceLeft produce trees that lean to the left.
+
+So they also have dual functions reduceRight and foldRight.
+
+```scala
+abstract class List[T] {
+  def foldRight[U](z: U)(op: (T, U) => U): U = this match {
+    case Nil => z
+    case x :: xs => op(x (xs foldRight z)(op))
+  }
+}
+
+```
+
+foldLeft and foldRight are generally equivalent for operations that are 
+`commutative` and `associative`.
+
+
+### Referential Transparency
+
+It's an important tool for equational proofs for Functional programs because they don't have side effects
+so the term is equivalent to the term it reduces.
+
+```
+Prove that:
+xs ++ Nil = xs
+
+We know that
+(x :: xs1) ++ ys = x :: (xs1 ++ ys)
+
+=> x :: (xs1 ++ Nil) (where ys is nil)
+=> x :: xs1
+=> xs
+```
+
+There's another method `fold\unfold` which can be used for equational proofs of functional programs.
+
+Good luck trying to do this :P
+
+```
+Prove the following distribution law for map over concatenation. For any lists xs, ys, function f:
+(xs ++ ys) map f = (xs map f) ++ (ys map f)
+
+You will need the clauses of ++ as well as the following clauses for map:
+
+Nil map f = Nil
+(x :: xs) map f = f(x) :: (xs map f)
+```
