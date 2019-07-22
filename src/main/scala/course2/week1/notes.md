@@ -119,3 +119,56 @@ val title = books.flatMap(book =>
   book.authors.withFilter(author => author.startsWith("Singh,"))
   .map(_ => book.title))
 ```
+
+So For expressions can be used with custom types as long as they implement map, flatMap and withFilter functions.
+
+This is the basis of Scala DB connection frameworks like ScalaQuery and Slick. 
+
+### Generating Random values with For Expressions
+
+Check worksheet for example Generators
+
+#### Testing random properties 
+
+[ScalaCheck](https://www.scalacheck.org/): Instead of writing tests, write *properties* that are assumed to hold.
+
+```scala
+    forAll {
+      (l1: List[Int], l2: List[Int]) => l1.size + l2.size == (l1 ++ l2).size
+    }
+```
+
+### Monads
+
+In simple words
+
+Monads: Data Structures with map and flatMap functions defined over them together with some
+algebraic laws that they should have.
+
+A monad is a parametric type `M[T]` with two operations, *flatMap* and *unit* that have to satisfy
+some laws
+
+```scala
+trait M[T] {
+  def flatMap[U](f: T => M[U]): M[U]
+}
+
+def unit[T](x: T): M[T]
+```
+
+In literature, flatMap is more commonly called *bind*.
+
+#### Example of Monads
+
+List is a monad with `unit(x) = List(x)`
+Generator is a monad with `unit(x) = single(x)`
+
+#### Monads and map
+
+map can be defined on a monad in terms of unit and flatMap
+
+
+```
+m map f == m flatMap (x => unit(f(x))) 
+        == m flatMap (f andThen unit)
+```
