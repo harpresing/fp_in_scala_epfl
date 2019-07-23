@@ -172,3 +172,50 @@ map can be defined on a monad in terms of unit and flatMap
 m map f == m flatMap (x => unit(f(x))) 
         == m flatMap (f andThen unit)
 ```
+
+### Monad Laws
+
+A type has to satisfy three laws in order to qualify as a Monad:
+
+
+#### Associativity
+
+```
+(m flatMap f) flatMap g == m flatMap (x => f(x) flatMap g)
+```
+
+#### Left Unit
+
+```
+unit(x) flatMap f == f(x)
+```
+
+#### Right unit
+```
+m flatMap unit == m
+```
+
+For Expressions work well with Monads because of their associativity and right unit properties.
+
+#### Another type Try
+
+Implementation of try
+
+```
+abstract class Try[+T]
+
+abstract class Try[+T]
+case class Success[T](x: T) extends Try[T]
+case class Failure(ex: Exception) extends Try[Nothing]
+
+object Try {
+  def apply[T](expr: => T): Try[T] = 
+    try Success(expr)
+    catch {
+      case NonFatal(ex) => Failure(ex)
+    }
+}
+```
+
+
+Try-valued computations can be composed in for expressions as long as map and flatMap are implemented.
