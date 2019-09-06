@@ -197,6 +197,14 @@ m flatMap unit == m
 
 For Expressions work well with Monads because of their associativity and right unit properties.
 
+Right unit says:
+
+```
+for (x <- m) yield x
+
+== m
+```
+
 #### Another type Try
 
 Implementation of try
@@ -219,3 +227,6 @@ object Try {
 
 
 Try-valued computations can be composed in for expressions as long as map and flatMap are implemented.
+Try is not a Monad since it violates the left unit principle.
+
+If monads also define a `withFilter` with some other additional laws, they are called "Monads with zero"

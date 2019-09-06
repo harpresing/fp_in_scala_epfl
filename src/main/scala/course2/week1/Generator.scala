@@ -7,6 +7,8 @@ trait Generator[+T] {
   def generate: T
 
   def map[S](f: T => S): Generator[S] = new Generator[S] {
+    // Had we used this.generate it would cause infinite recursion
+    // since this would refer to the current anonymous class
     def generate = f(self.generate)
   }
 
